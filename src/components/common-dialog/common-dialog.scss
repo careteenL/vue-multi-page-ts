@@ -1,0 +1,108 @@
+@import "../../assets/common-ui/util.scss";
+
+.global-dialog-wrap {
+    position: fixed;
+    z-index: 100000;
+    left: 0;
+    top: 0;
+    min-height: 2rem;
+    // background: rgba(33, 33, 33, 0.5);
+    background-color: rgba(85, 85, 102, 0.5);
+    height: 100%;
+    width: 100%;
+    padding: 0 50px;
+    box-sizing: border-box;
+    @extend %flex-center;
+
+    .dialog {
+        z-index: 1200;
+        overflow: hidden;
+        // min-width: 2.5rem;
+        // max-width: 2.75rem;
+        // margin: 0 50px;
+        width: 100%;
+        background: #fff;
+        text-align: center;
+        font-size: 16px;
+        border-radius: 0.1rem;
+        -webkit-overflow-scrolling : touch;  //可以让页面在Native端滚动时模拟原生的弹性滚动效果
+        .hd {
+            font-size: 16px;
+            text-align: center;
+
+            // font-weight: bold;
+            // height: .5rem;
+            // line-height: .5rem;
+            // background: #f8f8f8;
+            // color: #556;
+
+            // padding-top: 0.17rem;
+            // font-weight: bold;
+            // display: none;
+            color:rgba(85,85,102,1);
+            background-color:rgba(248,248,251,1);
+            height: .5rem;
+            line-height: .5rem;
+        }
+        .bd {
+            width: auto;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 0.16rem 0.2rem;
+            font-size: 14px;
+            max-height: 2.5rem;
+            line-height: 0.21rem;
+            // color: #556;
+            // @extend %flex-center;
+            // @include m-1px-sd(bottom, #eee);
+            // text-align: left;
+            // @extend %flex-center;
+            color:rgba(85,85,102,1);
+            text-align: center;
+        }
+        .text-left {
+            text-align: left;
+        }
+        .errorTip{
+            color: #dd2222;
+        }
+        .ft {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            text-align: center;
+            height: 0.5rem;
+            line-height: 0.5rem;
+            @include m-1px-sd(top, #EEEEEE);
+            &::before{
+                z-index: 9;
+            }
+        }
+        .ft span {
+            display: block;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            width: 100%;
+            height: auto;
+            @include m-1px-sd(right, #eee);
+            background-color: #fff;
+            font-size: 14px;
+            color: #d32;
+            // color:rgba(85,85,102,1);
+        }
+        .ft span:nth-child(1){
+            // color:rgba(221,51,34,1);
+            color:rgba(85,85,102,1);
+        }
+        .ft span:active {
+            background-color: #f1f1f1;
+        }
+        .ft span:last-child {
+            color: #d32;
+            &::before{
+                width: 0;
+            }
+        }
+    }
+}

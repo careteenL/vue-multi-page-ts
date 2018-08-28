@@ -1,0 +1,68 @@
+@import "../../assets/common-ui/util.scss";
+
+.common-header{
+    // position: relative;
+    width: 100%;
+    height: 44px;
+    font-size: 18px;
+    line-height: 44px;
+    text-align: center;
+    color: #555566;
+    background: #fff;
+    font-weight: 700;
+    @include m-1px-sd(bottom, #e0e0ea);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    &_back{
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translate(0, -50%);
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        @include bg('icon-left.png', 'components');
+    }
+    &_title{
+
+    }
+    &_tip{
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translate(0, -50%);
+        font-size: 14px;
+        color: #d32;
+        font-weight: normal;
+        &.icon-help{
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            @include bg('icon-help.png', 'components');
+        }
+        &.icon-date{
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            @include bg('icon-date.png', 'components');
+        }
+        &.icon-add{
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            @include bg('icon-add.svg', 'components');
+        }
+        &.icon-delete{
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            @include bg('icon-remove.svg', 'components');
+        }
+
+    }
+    &_tip_notActive{
+        color: rgba(204,204,221,1);
+    }
+}

@@ -1,0 +1,40 @@
+.flex {
+    display: -webkit-box!important;
+    display: -webkit-flex!important;
+    display: -ms-flexbox!important;
+    display: flex!important;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    font-size: 0;
+    &>.cell {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        width: 0;
+        -webkit-flex-basis: 0;
+        -ms-flex-preferred-size: 0;
+        flex-basis: 0;
+        max-width: 100%;
+        display: block;
+        padding: 0!important;
+        position: relative;
+    }
+}
+/* 过渡效果*/
+.fade-enter-active, .fade-leave-active {
+    transition: all 0.5s ease;
+}
+.fade-enter, .fade-leave-active {
+    opacity: 0;
+}
+.clearfix:after {
+    display:block;
+    content:'';
+    clear:both;
+    visibility:hidden
+}
+*{
+    -webkit-tap-highlight-color:rgba(255,255,255,0);
+}

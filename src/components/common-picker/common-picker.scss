@@ -1,0 +1,120 @@
+@import "../../assets/common-ui/util.scss";
+
+.picker-box {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(85, 85, 102, 0.5);
+    z-index: 10000;
+
+    .picker-wrapper {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #FFF;
+    }
+
+    .picker-title {
+       padding: 0 15px;
+       height: 50px;
+       line-height: 50px;
+       color: #556;
+       // border-bottom: 1px solid #eee;
+       @include m-1px-sd(bottom, #eee);
+       box-sizing: border-box;
+        .cancel-btn {
+            font-size: 14px;
+            // float: left;
+            text-align: left;
+        }
+        .middle-btn{
+            font-size: 14px;
+            text-align: center;
+        }
+        .confirm-btn {
+            font-size: 14px;
+            // float: right;
+            text-align: right;
+            color: #d32;
+        }
+   }
+
+}
+.move-enter-active, .move-leave-active {
+    transition: all 0.5s linear;
+    transform: translate3d(0, 0, 0);
+}
+.move-enter, .move-leave {
+    transform: translate3d(100%, 0, 0);
+}
+
+.picker-box .picker-list {
+    position: relative;
+    display: -webkit-box;
+    -webkit-overflow-scrolling: touch;
+    .datemark {
+        font-size: 18px;
+        width: 100%;
+        height: 45px;
+        line-height: 45px;
+        position: absolute;
+        // top: 90px;
+        background: #FFF;
+        @include m-1px-all-same(#bbc);
+        &::after{
+            border-left: none;
+            border-right: none;
+        }
+        box-sizing: border-box;
+    }
+
+    .datescroll {
+       text-align: center;
+       line-height: 45px;
+       -webkit-overflow-scrolling: touch;
+   }
+
+    .datescroll div {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0px;
+        height: 100%;
+        ul li {
+           text-align: center;
+           color: #bbc;
+           font-size: 14px;
+           height: 45px;
+           line-height: 45px;
+           &.select-item{
+               color: #556;
+           }
+        }
+    }
+}
+.layer-picker-wrap {
+    &_list {
+
+    }
+    &_item {
+        text-align: center;
+        color: #556;
+        height: 50px;
+        line-height: 50px;
+        font-size: 16px;
+        &:not(:last-child) {
+            @include m-1px-sd(bottom, #eee);
+        }
+    }
+}
+.hack-mask {
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0);
+}

@@ -1,0 +1,344 @@
+@charset "UTF-8";
+/**
+ *
+ * @desc 功能样式，包括：mixin(混合)、%(placeholder选择器)、function(函数) 三个部分
+ *       兼容性 : 支持 IE9+
+ * @example @mixin      : 通过@include调用，样式通过拷贝的方式使用，尤其适用于传递参数
+ *          %           : 通过@extend调用，样式通过组合申明的方式使用，适用于不传参数的代码片段
+ *          @function   : 返回一个值，直接调用
+ * @created by careteen on 2018-01-11
+ * @recentUpdate by careteen on 2018-01-11
+ */
+// -----------------------------------------
+//                 变量 start
+// -----------------------------------------
+
+/**
+ *
+ * @desc 变量
+ *
+ */
+$imgPathViews: '../../../../assets/common-ui/img';
+$imgPathComponents: '../../assets/common-ui/img';
+
+// -----------------------------------------
+//                    变量 end
+// -----------------------------------------
+
+// -----------------------------------------
+//             placeholder选择器 start
+// -----------------------------------------
+
+/**
+ *
+ * @desc 清除浮动
+ */
+%clearfix {
+    &:before,
+    &:after {
+        content: '';
+        display: table;
+        font: 0/0 a;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+/**
+ *
+ * @desc 前提条件是设置元素宽度，才可以应用省略号
+ */
+%ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/**
+ *
+ * @desc flex 居中
+ */ 
+%flex-center {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+// -----------------------------------------
+//              placeholder选择器 end
+// -----------------------------------------
+
+// -----------------------------------------
+//                  mixin start
+// -----------------------------------------
+
+/**
+ *
+ * @desc 多行文本溢出展示...
+ * @param {String} $lineCount        [default: 1] 至多显示行数
+ */
+@mixin multi-ellipsis ($lineCount: 1) {
+    @if $lineCount == 1{
+        @extend %ellipsis;
+    }
+    @else if $lineCount > 1{
+        word-break: break-all;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: $lineCount;
+    }
+}
+
+/**
+ *
+ * @desc 背景图片
+ * @param {String} $img
+ * @param {String} $parent 父级文件夹名称
+ */
+@mixin bg ($img, $parent: 'views', $left: 0, $top: 0, $size: contain, $repeat: no-repeat, $pos: false) {
+    @if $parent == 'views' {
+        background-image: url(#{$imgPathViews}/#{$img});
+    }@else {
+        background-image: url(#{$imgPathComponents}/#{$img});
+    }
+    @if $pos {
+        background-position: #{$pos}
+    }
+    @else {
+        background-position: $left $top;
+    }
+    background-repeat: $repeat;
+    background-size: $size;
+}
+
+/**
+ *
+ * @desc 实心带颜色三角
+ * @param {String} $direction          [left, right, top, bottom] 三角尖朝向
+ * @param {String} $size               [10px...] 三角大小
+ * @param {String} $borderColor        [default: #ccc] 三角颜色
+ * @example  @include triangle(top, 10px, #ccc);
+ */
+@mixin triangle ($direction, $size, $borderColor: #ccc) {
+    content: '';
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    @if $direction == top {
+        border-bottom: $size solid $borderColor;
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+    }
+    @else if $direction == bottom {
+        border-top: $size solid $borderColor;
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+    }
+    @else if $direction == left {
+        border-right: $size solid $borderColor;
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+    }
+    @else if $direction == right {
+        border-left: $size solid $borderColor;
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+    }
+
+}
+
+/**
+ *
+ * @desc 移动端 1px 单方向 (mobile-1px-singleDirection)
+ * @param {String} $direction        [left, right, top, bottom] 1px显示的位置方向
+ * @param {String} $color            [default: #D5D5D5] 1px颜色
+ * @param {String} $offset           [default: 0] 1px在显示位置方向上的偏移量,设置50%时可实现1px居中
+ * @example  @include m-1px-sd(top, #fff);
+ */
+@mixin m-1px-sd($direction, $color: #D5D5D5, $offset: 0){
+    position:relative;
+    &::before {
+        pointer-events: none;
+        position: absolute;
+        content: '';
+        background: $color;
+        @if $direction == left {
+            width: 1px;
+            top: 0;
+            bottom: 0;
+            left: $offset;
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+        }
+        @else if $direction == right {
+            width: 1px;
+            top: 0;
+            bottom: 0;
+            right: $offset;
+            -webkit-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+        }
+        @else if $direction == top {
+            height: 1px;
+            top: $offset;
+            left: 0;
+            right: 0;
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+        }
+        @else if $direction == bottom {
+            height: 1px;
+            bottom: $offset;
+            left: 0;
+            right: 0;
+            -webkit-transform-origin: 100% 100%;
+            transform-origin: 100% 100%;
+        }
+
+    }
+    @if $direction == left or $direction == right {
+        @media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+            &::before{
+                -webkit-transform: scaleX(.5);
+                transform: scaleX(.5);
+            }
+        }
+        @media (-webkit-device-pixel-ratio: 1.5) {
+            &::before {
+                -webkit-transform: scaleX(.6666);
+                transform: scaleX(.6666);
+            }
+        }
+        @media (-webkit-device-pixel-ratio: 3) {
+            &::before {
+                -webkit-transform: scaleX(.3333);
+                transform: scaleX(.3333);
+            }
+        }
+
+    }
+    @else if $direction == top or $direction == bottom {
+        @media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+            &::before{
+                -webkit-transform: scaleY(.5);
+                transform: scaleY(.5);
+            }
+        }
+        @media (-webkit-device-pixel-ratio: 1.5) {
+            &::before {
+                -webkit-transform: scaleY(.6666);
+                transform: scaleY(.6666);
+            }
+        }
+        @media (-webkit-device-pixel-ratio: 3) {
+            &::before {
+                -webkit-transform: scaleY(.3333);
+                transform: scaleY(.3333);
+            }
+        }
+    }
+}
+
+/**
+ *
+ * @desc 移动端 1px 四周 (mobile-1px-allAround)
+ * @param {String} $Color            [left, right, top, bottom] 各边颜色
+ * @param {String} $radius           [default: 0] border-radius
+ * @example  @include m-1px-all(#fff, #fff,#fff, #fff, 5px);
+ */
+@mixin m-1px-all($top-color, $right-color, $bottom-color, $left-color, $radius: 0) {
+    position:relative;
+    &::after {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        border-style: solid;
+        border-width: 1px;
+        border-color: $top-color $right-color $bottom-color $left-color;
+        pointer-events:none;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        @if $radius != 0 {
+            border-radius: $radius;
+            -webkit-border-radius: $radius;
+        }
+    }
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+        &::after{
+            width: 200%;
+            height: 200%;
+            -webkit-transform: scale(.5);
+            transform: scale(.5);
+        }
+    }
+    @media (-webkit-device-pixel-ratio: 1.5) {
+        &::after {
+            width: 150%;
+            height: 150%;
+            -webkit-transform: scale(.6666);
+            transform: scale(.6666);
+        }
+    }
+    @media (-webkit-device-pixel-ratio: 3) {
+        &::after {
+            width: 300%;
+            height: 300%;
+            -webkit-transform: scale(.3333);
+            transform: scale(.3333);
+        }
+    }
+}
+
+/**
+ *
+ * @desc 移动端 1px 四周边框颜色相同 (mobile-1px-allAround-same)
+ * @param {String} $Color            [default: transparent] 各边颜色
+ * @param {String} $radius           [default: 0] border-radius
+ * @example  @include m-1px-all-same(#fff, 10px);
+ */
+@mixin m-1px-all-same($border-color: transparent, $radius: 0) {
+    @include m-1px-all($border-color, $border-color, $border-color, $border-color, $radius);
+}
+
+// -----------------------------------------
+//                  mixin end
+// -----------------------------------------
+
+// -----------------------------------------
+//                  keyframes start
+// -----------------------------------------
+
+/**
+ *
+ * @desc loading 动画
+ * @example animation: ani-loading 0.9s linear infinite;
+ */
+@keyframes ani-loading {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+// -----------------------------------------
+//                  keyframes end
+// -----------------------------------------

@@ -8,12 +8,15 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+console.log(utils.entries());
+
 const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',
   enforce: 'pre',
   include: [resolve('src'), resolve('test')],
   options: {
+    fix: true,
     formatter: require('eslint-friendly-formatter'),
     emitWarning: !config.dev.showEslintErrorsInOverlay
   }
@@ -21,9 +24,7 @@ const createLintingRule = () => ({
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
-  entry: {
-    app: './src/main.js'
-  },
+  entry:  utils.entries(),
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
@@ -34,8 +35,16 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
+      'vue$': 'vue/dist/vue.common.js',
       '@': resolve('src'),
+      '@api': resolve('src/api'),
+      '@components': resolve('src/components'),
+      '@config': resolve('src/config'),
+      '@lib': resolve('src/assets/lib'),
+      '@util': resolve('src/assets/lib/util.js'),
+      '@commonUi': resolve('src/assets/common-ui'),
+      '@img': resolve('src/assets/common-ui/img'),
+      '@demo': resolve('src/page/demo')
     }
   },
   module: {
