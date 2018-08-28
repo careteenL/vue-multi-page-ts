@@ -1,6 +1,6 @@
 # vue-multi-page-ts
 
-> A Vue.js project
+> Vue多页面+TypeScript
 
 ## Build Setup
 
